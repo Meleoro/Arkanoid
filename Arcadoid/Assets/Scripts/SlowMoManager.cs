@@ -30,7 +30,7 @@ public class SlowMoManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Mouse1) && currentCharge > 0)
+        /*if (Input.GetKey(KeyCode.Mouse1) && currentCharge > 0)
         {
             SlowMoTime();
         }
@@ -44,7 +44,7 @@ public class SlowMoManager : MonoBehaviour
             AddCharge();
         }
         
-        chargeBar.fillAmount = currentCharge;
+        chargeBar.fillAmount = currentCharge;*/
     }
 
 

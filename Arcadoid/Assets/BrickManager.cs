@@ -19,6 +19,7 @@ public class BrickManager : MonoBehaviour
     [Header("Paramètres")]
     [Range(0, 100)] public float probaSpawnBrick;
     [Range(0f, 1f)] public float fallSpeed;
+    public List<Material> materials;
 
     [Header("Autres")] 
     private float compteurDescente;
@@ -72,6 +73,7 @@ public class BrickManager : MonoBehaviour
         isCreatingLigne = false;
     }
     
+
     private void NewLigne(float startPosY)
     {
         Vector2 startPos;
@@ -80,12 +82,12 @@ public class BrickManager : MonoBehaviour
         if (lignePaire)
         {
             startPos = new Vector2(startPaireX, startPosY);
-            nbrBrick = 8;
+            nbrBrick = 7;
         }
         else
         {
             startPos = new Vector2(startImpaireX, startPosY);
-            nbrBrick = 7;
+            nbrBrick = 6;
         }
 
         lignePaire = !lignePaire;
@@ -100,6 +102,7 @@ public class BrickManager : MonoBehaviour
 
         StartCoroutine(InstantiateLigne(posToSpawn));
     }
+
 
     private IEnumerator InstantiateLigne(List<Vector2> spawnPos)
     {

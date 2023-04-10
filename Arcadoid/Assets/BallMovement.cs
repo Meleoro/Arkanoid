@@ -9,30 +9,48 @@ public class BallMovement : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Vector3 dir = Vector3.up;
 
-    private bool isPowerful;
+    [HideInInspector] public bool isPowerful;
+
+    private List<BoxCollider> disabledBoxColliders = new List<BoxCollider>();
+
+    [Header("Powershot")]
+    [SerializeField] private float powershotSpeed;
+
+    [Header("Autres")]
+    private float currentSpeed;
 
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        currentSpeed = speed;
     }
+
 
 
     void FixedUpdate()
     {
-        rb.velocity = dir * (speed * Time.deltaTime);
+        rb.velocity = dir * (currentSpeed * Time.deltaTime);
     }
 
 
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionStay(Collision other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if (other.gameObject.GetComponent<PaddleMover>().timerPowershot > 0)
+            PaddleMover paddleScript = other.gameObject.GetComponent<PaddleMover>();
+
+            if (paddleScript.timerPowershot > 0)
             {
-                isPowerful = true;
+                ActivatePowerShot();
                 
-                other.gameObject.GetComponent<PaddleMover>().EffetsTirPuissant();
+                paddleScript.EffetsTirPuissant();
+            }
+            else
+            {
+                paddleScript.timerBallTouch = paddleScript.margeErreurTirPuissant;
+                paddleScript.currentBall = this;
             }
             
             PaddleBounce(other.transform, other.contacts[0].point);
@@ -42,23 +60,65 @@ public class BallMovement : MonoBehaviour
         {
             if (other.gameObject.CompareTag("Brick"))
             {
-                other.gameObject.GetComponent<Brick>().DestroyBrick();
-
                 if (!isPowerful)
                 {
-                    dir = Vector3.Reflect(dir, other.contacts[0].normal).normalized;
+                    other.gameObject.GetComponent<Brick>().LoseHealth(1, false);
+
+                    Vector3 newDirection = Vector3.Reflect(dir, other.contacts[0].normal);
+                    float hypothenuse = (newDirection.normalized + other.contacts[0].normal).magnitude;
+
+                    if (hypothenuse > Mathf.Sqrt(2))
+                    {
+                        dir = newDirection;
+                    }
+
                     dir.z = 0;
                 }
+                else
+                {
+                    if (other.gameObject.GetComponent<Brick>().health > 1)
+                        disabledBoxColliders.Add(other.gameObject.GetComponent<BoxCollider>());
+
+                    other.gameObject.GetComponent<Brick>().LoseHealth(1, true);
+                }
             }
+
             else
             {
-                dir = Vector3.Reflect(dir, other.contacts[0].normal).normalized;
+                Vector3 newDirection = Vector3.Reflect(dir, other.contacts[0].normal);
+                float hypothenuse = (newDirection.normalized + other.contacts[0].normal).magnitude;
+
+                if (hypothenuse > Mathf.Sqrt(2))
+                {
+                    dir = newDirection;
+                }
+
                 dir.z = 0;
 
-                isPowerful = false;
+                if (other.gameObject.CompareTag("UpWall"))
+                {
+                    isPowerful = false;
+                    currentSpeed = speed;
+
+                    for (int i = 0; i < disabledBoxColliders.Count; i++)
+                    {
+                        disabledBoxColliders[i].enabled = true;
+                    }
+
+                    disabledBoxColliders.Clear();
+                }
             }
         }
     }
+
+
+
+    public void ActivatePowerShot()
+    {
+        isPowerful = true;
+        currentSpeed = powershotSpeed;
+    }
+
 
 
     public void PaddleBounce(Transform paddle, Vector3 point)

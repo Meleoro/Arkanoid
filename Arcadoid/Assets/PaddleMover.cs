@@ -10,8 +10,11 @@ public class PaddleMover : MonoBehaviour
     [SerializeField] private float maxLateralDistance = 10;
 
     [Header("PowerShot")] 
-    [SerializeField] private float margeErreurTirPuissant;
+    public float margeErreurTirPuissant;
     [HideInInspector] public float timerPowershot;
+    [HideInInspector] public float timerBallTouch;
+    [HideInInspector] public BallMovement currentBall;
+    [SerializeField] private ParticleSystem effetPowerShot;
 
 
     [Header("References")] 
@@ -37,6 +40,17 @@ public class PaddleMover : MonoBehaviour
             timerPowershot -= Time.deltaTime;
         }
 
+        if(timerBallTouch > 0)
+        {
+            timerBallTouch -= Time.deltaTime;
+
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                currentBall.ActivatePowerShot();
+                EffetsTirPuissant();
+            }
+        }
+
         if (volumePowerShot.weight > 0)
         {
             volumePowerShot.weight -= Time.deltaTime * 2;
@@ -59,6 +73,8 @@ public class PaddleMover : MonoBehaviour
 
     public void EffetsTirPuissant()
     {
+        effetPowerShot.Play();
+        
         volumePowerShot.weight = 1;
     }
 }
