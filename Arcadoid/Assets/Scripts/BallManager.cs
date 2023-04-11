@@ -18,8 +18,10 @@ public class BallManager : MonoBehaviour
     [HideInInspector] public int currentMax;
     [HideInInspector] public int currentBallStock;
 
+    [SerializeField] private List<float> reloadTimers = new List<float>();
+
     [Header("References")]
-    [SerializeField] private List<Image> balls;
+    [SerializeField] private List<Ball> balls;
 
 
     private void Awake()
@@ -50,15 +52,42 @@ public class BallManager : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Q) && currentBallStock > 0)
         {
-            SpawnNewBall();
+            for (int i = 0; i < balls.Count; i++)
+            {
+                if (!balls[i].isUsed && balls[i].canBeUse)
+                {
+                    SpawnNewBall(i);
+                }
+            }
+        }
+
+        for (int i = 0; i < balls.Count; i++)
+        {
+            if (balls[i].reload)
+            {
+                if (balls[i].timerReload > 0)
+                {
+                    balls[i].timerReload -= Time.deltaTime;
+
+                    balls[i].ballImage.fillAmount = 1 - reloadTimers[i];
+                }
+            
+                else if (balls[i].canBeUse)
+                {
+                    balls[i].isUsed = false;
+                    balls[currentBallStock - 1].reload = false;
+                }
+            }
         }
     }
 
 
-    public void SpawnNewBall()
+    public void SpawnNewBall(int indexBall)
     {
         _ballLauncher.ballTransform = Instantiate(ball, transform.position, Quaternion.identity, transform).transform;
 
+        balls[indexBall].isUsed = true;
+        
         currentBallStock -= 1;
         ActualiseBalls();
     }
@@ -66,6 +95,11 @@ public class BallManager : MonoBehaviour
     public void DestroyBall()
     {
         currentBallStock += 1;
+
+        balls[currentBallStock - 1].timerReload = 1;
+        balls[currentBallStock - 1].reload = true;
+        
+        ActualiseBalls();
     }
 
 
@@ -75,20 +109,20 @@ public class BallManager : MonoBehaviour
         {
             if (k + 1 <= currentMax)
             {
-                balls[k].enabled = true;
+                balls[k].ballImage.enabled = true;
             }
             else
             {
-                balls[k].enabled = false;
+                balls[k].ballImage.enabled = false;
             }
 
             if (k + 1 <= currentBallStock)
             {
-                balls[k].DOFade(1f, 0);
+                balls[k].ballImage.enabled = true;
             }
             else
             {
-                balls[k].DOFade(0.5f, 0);
+                balls[k].ballImage.enabled = false;
             }
         }
     }
@@ -102,4 +136,6 @@ public class Ball
 
     public bool canBeUse;
     public bool isUsed;
+    public float timerReload;
+    public bool reload;
 }
