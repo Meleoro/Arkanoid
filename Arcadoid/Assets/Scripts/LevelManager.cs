@@ -12,7 +12,7 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
 
-    [Header("Rythme Montée de Niveau")]
+    [Header("Rythme Montï¿½e de Niveau")]
     [SerializeField] private int xpNeededStart;
     [SerializeField] private int xpNeededAddition;
     private int currentXPNeeded;
@@ -33,7 +33,7 @@ public class LevelManager : MonoBehaviour
     private GameObject upgrade2Object;
     [HideInInspector] public bool isLevelingUp;
 
-    [Header("Références")]
+    [Header("References")] 
     [SerializeField] private TextMeshProUGUI lvlText;
     [SerializeField] private Image xpBarImage;
     [SerializeField] private Image fond;
@@ -42,6 +42,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Button button1;
     [SerializeField] private Button button2;
     [SerializeField] private ParticleSystem VFXLevelUp;
+    private StatsManager statsManagerScript;
 
 
     private void Awake()
@@ -64,6 +65,8 @@ public class LevelManager : MonoBehaviour
 
         button1.enabled = false;
         button2.enabled = false;
+
+        statsManagerScript = GetComponent<StatsManager>();
     }
 
 
@@ -255,6 +258,8 @@ public class LevelManager : MonoBehaviour
 
         arretDuTemps = false;
         fond.DOFade(0f, 0.5f);
+        
+        statsManagerScript.ApplyStats();
 
         isLevelingUp = false;
     }

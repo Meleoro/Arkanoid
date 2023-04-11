@@ -48,7 +48,7 @@ public class BrickManager : MonoBehaviour
 
             if (compteurDescente >= offsety)
             {
-                NewLigne(8.5f);
+                NewLigne(9.5f);
 
                 compteurDescente = 0;
             }
@@ -59,15 +59,15 @@ public class BrickManager : MonoBehaviour
     private IEnumerator Initialise()
     {
         isCreatingLigne = true;
-        NewLigne(8.5f);
+        NewLigne(9.5f);
 
         yield return new WaitForSeconds(0.7f);
         
-        NewLigne(7f);
+        NewLigne(8f);
         
         yield return new WaitForSeconds(0.8f);
         
-        NewLigne(5.5f);
+        NewLigne(6.5f);
 
         yield return new WaitForSeconds(0.8f);
         isCreatingLigne = false;

@@ -18,7 +18,7 @@ public class BallManager : MonoBehaviour
     [HideInInspector] public int currentMax;
     [HideInInspector] public int currentBallStock;
 
-    [Header("Références")]
+    [Header("References")]
     [SerializeField] private List<Image> balls;
 
 

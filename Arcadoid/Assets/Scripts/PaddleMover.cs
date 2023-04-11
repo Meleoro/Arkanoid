@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 
 public class PaddleMover : MonoBehaviour
 {
-    [SerializeField] private float speed = 1;
+    public float speed = 1;
     [SerializeField] private float maxLateralDistance = 10;
 
     [Header("PowerShot")] 
