@@ -49,7 +49,7 @@ public class StatsManager : MonoBehaviour
     
     public void ApplyStats()
     {
-        int currentStrength = LevelManager.Instance.currentSpeed;
+        int currentStrength = LevelManager.Instance.currentStrength;
         int currentSpeedLvl = LevelManager.Instance.currentSpeed;
         int currentWidthLvl = LevelManager.Instance.currentWidth;
 

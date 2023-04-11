@@ -60,7 +60,7 @@ public class Brick : MonoBehaviour
         {
             StartCoroutine(SetInvincible());
 
-            health -= 1;
+            health -= damages;
 
             if (health > 0)
             {
@@ -78,7 +78,8 @@ public class Brick : MonoBehaviour
 
                 refBrickManager.brickList.Remove(this);
 
-                Instantiate(particleDestroy, transform.position, Quaternion.identity);
+                ParticleSystem newParticle = Instantiate(particleDestroy, transform.position, Quaternion.identity);
+                Destroy(newParticle, 1f);
 
                 Destroy(gameObject);
             }
@@ -91,7 +92,9 @@ public class Brick : MonoBehaviour
         timerEffects = dureeLight;
 
         particleDegatsParameters.startColor = refBrickManager.materials[health - 1].color;
-        Instantiate(particleDegats, transform.position, Quaternion.identity);
+        ParticleSystem newParticle = Instantiate(particleDegats, transform.position, Quaternion.identity);
+
+        Destroy(newParticle, 1f);
 
         CameraManager.Instance.DoCameraShake(cameraShakeDuration, cameraShakeDuration);
 
