@@ -54,7 +54,7 @@ public class BallManager : MonoBehaviour
         {
             for (int i = 0; i < balls.Count; i++)
             {
-                if (!balls[i].isUsed && balls[i].canBeUse)
+                if (!balls[i].isUsed && currentBallStock > i)
                 {
                     SpawnNewBall(i);
                 }
@@ -69,10 +69,10 @@ public class BallManager : MonoBehaviour
                 {
                     balls[i].timerReload -= Time.deltaTime;
 
-                    balls[i].ballImage.fillAmount = 1 - reloadTimers[i];
+                    balls[i].ballImage.fillAmount = 1 - balls[i].timerReload;
                 }
             
-                else if (balls[i].canBeUse)
+                else
                 {
                     balls[i].isUsed = false;
                     balls[currentBallStock - 1].reload = false;
@@ -110,6 +110,7 @@ public class BallManager : MonoBehaviour
             if (k + 1 <= currentMax)
             {
                 balls[k].ballImage.enabled = true;
+                balls[k].isUsed = false;
             }
             else
             {
@@ -119,6 +120,7 @@ public class BallManager : MonoBehaviour
             if (k + 1 <= currentBallStock)
             {
                 balls[k].ballImage.enabled = true;
+                balls[k].isUsed = false;
             }
             else
             {
@@ -133,8 +135,7 @@ public class BallManager : MonoBehaviour
 public class Ball
 {
     public Image ballImage;
-
-    public bool canBeUse;
+    
     public bool isUsed;
     public float timerReload;
     public bool reload;
