@@ -62,7 +62,7 @@ public class BallMovement : MonoBehaviour
             {
                 if (!isPowerful)
                 {
-                    other.gameObject.GetComponent<Brick>().LoseHealth(1, false);
+                    other.gameObject.GetComponent<Brick>().LoseHealth(LevelManager.Instance.currentStrength + 1, false);
 
                     Vector3 newDirection = Vector3.Reflect(dir, other.contacts[0].normal);
                     float hypothenuse = (newDirection.normalized + other.contacts[0].normal).magnitude;
@@ -76,10 +76,10 @@ public class BallMovement : MonoBehaviour
                 }
                 else
                 {
-                    if (other.gameObject.GetComponent<Brick>().health > 1)
+                    if (other.gameObject.GetComponent<Brick>().health > LevelManager.Instance.currentStrength + 1)
                         disabledBoxColliders.Add(other.gameObject.GetComponent<BoxCollider>());
 
-                    other.gameObject.GetComponent<Brick>().LoseHealth(1, true);
+                    other.gameObject.GetComponent<Brick>().LoseHealth(LevelManager.Instance.currentStrength + 1, true);
                 }
             }
 

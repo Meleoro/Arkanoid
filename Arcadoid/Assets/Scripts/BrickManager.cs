@@ -26,12 +26,21 @@ public class BrickManager : MonoBehaviour
     private bool lignePaire;
     private bool isCreatingLigne;
 
+    [Header("Augmentation Difficulté")]
+    [SerializeField] [Range(0, 100)] private float maxProbaSpawnBrick;
+    [SerializeField] [Range(0f, 1f)] private float maxFallSpeed;
+    private int currentBricks;
+    private int iterations;
+
 
     private void Start()
     {
         isCreatingLigne = true;
+
+        currentBricks = 2;
         
         StartCoroutine(Initialise());
+        StartCoroutine(UpDifficulty());
     }
 
 
@@ -112,9 +121,7 @@ public class BrickManager : MonoBehaviour
 
             if (brickSpawn < probaSpawnBrick)
             {
-                int min = Mathf.Clamp(bricksGameObjects.Count - 3, 0, 100);
-                
-                int currentBrick = Random.Range(min, bricksGameObjects.Count);
+                int currentBrick = Random.Range(0, currentBricks);
 
                 GameObject newBrick = Instantiate(bricksGameObjects[currentBrick], spawnPos[i], Quaternion.identity, transform);
 
@@ -125,5 +132,33 @@ public class BrickManager : MonoBehaviour
                 yield return new WaitForSeconds(0.1f);
             }
         }
+    }
+
+    private IEnumerator UpDifficulty()
+    {
+
+        yield return new WaitForSeconds(15);
+
+        if(probaSpawnBrick < maxProbaSpawnBrick)
+        {
+            probaSpawnBrick += 3f;
+        }
+
+        if(fallSpeed < maxFallSpeed)
+        {
+            fallSpeed += 0.03f;
+        }
+
+        if(currentBricks < brickList.Count)
+        {
+            iterations += 1;
+            if(iterations == 2)
+            {
+                iterations = 0;
+                currentBricks += 1;
+            }
+        }
+
+        StartCoroutine(UpDifficulty());
     }
 }

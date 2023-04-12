@@ -13707,16 +13707,22 @@ MonoBehaviour:
   - {fileID: 3626719686145025099, guid: e502abfdc23e7ea46b1cdacbf0a54b15, type: 3}
   - {fileID: 5911059741187340265, guid: 485536574d91cb54b81745235ba6ce4b, type: 3}
   - {fileID: 4650073638353873426, guid: da797cfcec4482b47895e491f82f5956, type: 3}
+  - {fileID: 4650073638353873426, guid: 57ecdf6e4e4fa364991636988346fce7, type: 3}
+  - {fileID: 4650073638353873426, guid: 3e905a2b6d47bf543a22cd4e96dc533e, type: 3}
   offsetx: 2.5
   offsety: 1.5
   startPaireX: -7.25
   startImpaireX: -6
-  probaSpawnBrick: 70
-  fallSpeed: 0.313
+  probaSpawnBrick: 60
+  fallSpeed: 0.25
   materials:
   - {fileID: 2100000, guid: 9cb387013cd077c42a8134d8d19d8d36, type: 2}
   - {fileID: 2100000, guid: 0ee7216abee38f24b89474342316d5c0, type: 2}
   - {fileID: 2100000, guid: 9e81df97e7a3930429a524d76c7c27c6, type: 2}
+  - {fileID: 2100000, guid: 760195432823b1940b209eb5aa0c6a13, type: 2}
+  - {fileID: 2100000, guid: fd40a34c53e5ad0438ce6078f3733f20, type: 2}
+  maxProbaSpawnBrick: 85
+  maxFallSpeed: 0.5
 --- !u!1 &1336782279
 GameObject:
   m_ObjectHideFlags: 0
@@ -15164,17 +15170,14 @@ MonoBehaviour:
   - 0
   balls:
   - ballImage: {fileID: 1313011992}
-    canBeUse: 1
     isUsed: 0
     timerReload: 0
     reload: 0
   - ballImage: {fileID: 9024112}
-    canBeUse: 0
     isUsed: 0
     timerReload: 0
     reload: 0
   - ballImage: {fileID: 1455582853}
-    canBeUse: 0
     isUsed: 0
     timerReload: 0
     reload: 0
