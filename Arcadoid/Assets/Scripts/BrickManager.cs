@@ -112,7 +112,9 @@ public class BrickManager : MonoBehaviour
 
             if (brickSpawn < probaSpawnBrick)
             {
-                int currentBrick = Random.Range(0, bricksGameObjects.Count);
+                int min = Mathf.Clamp(bricksGameObjects.Count - 3, 0, 100);
+                
+                int currentBrick = Random.Range(min, bricksGameObjects.Count);
 
                 GameObject newBrick = Instantiate(bricksGameObjects[currentBrick], spawnPos[i], Quaternion.identity, transform);
 
