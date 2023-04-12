@@ -74,15 +74,13 @@ public class DangerZone : MonoBehaviour
 
     private void ChangeToAlert()
     {
-        materialColorChange.DOColor(alertColor, 0.5f);
+        materialColorChange.color = Color.Lerp(alertColor, originalColor, timerDanger * 2);
         materialColorChange.SetColor("_EmissionColor", Color.Lerp(alertColorHDR, originalColorHDR, timerDanger * 2));
     }
 
     private void ChangeToNormal()
     {
-        materialColorChange.DOColor(originalColor, 0.5f);
-        
-        
+        materialColorChange.color = Color.Lerp(originalColor, alertColor, timerDanger * 2);
         materialColorChange.SetColor("_EmissionColor", Color.Lerp(originalColorHDR, alertColorHDR, timerDanger * 2));
     }
 }
