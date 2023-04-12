@@ -20,7 +20,9 @@ public class BallLauncher : MonoBehaviour
     public void LaunchBall()
     {
         ballTransform.GetComponent<Rigidbody>().isKinematic = false;
+        ballTransform.GetComponent<Collider>().isTrigger = false;
 
         ballTransform.parent = null;
+        ballTransform = null;
     }
 }

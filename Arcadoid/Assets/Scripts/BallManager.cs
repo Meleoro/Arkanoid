@@ -75,7 +75,7 @@ public class BallManager : MonoBehaviour
                 else
                 {
                     balls[i].isUsed = false;
-                    balls[currentBallStock - 1].reload = false;
+                    balls[i].reload = false;
                 }
             }
         }
@@ -84,12 +84,15 @@ public class BallManager : MonoBehaviour
 
     public void SpawnNewBall(int indexBall)
     {
-        _ballLauncher.ballTransform = Instantiate(ball, transform.position, Quaternion.identity, transform).transform;
+        if (_ballLauncher.ballTransform == null)
+        {
+            _ballLauncher.ballTransform = Instantiate(ball, transform.position, Quaternion.identity, transform).transform;
 
-        balls[indexBall].isUsed = true;
+            balls[indexBall].isUsed = true;
         
-        currentBallStock -= 1;
-        ActualiseBalls();
+            currentBallStock -= 1;
+            ActualiseBalls();
+        }
     }
 
     public void DestroyBall()
@@ -98,8 +101,11 @@ public class BallManager : MonoBehaviour
 
         balls[currentBallStock - 1].timerReload = 1;
         balls[currentBallStock - 1].reload = true;
-        
-        ActualiseBalls();
+
+        balls[currentBallStock - 1].isUsed = true;
+        balls[currentBallStock - 1].ballImage.enabled = true;
+
+        //ActualiseBalls();
     }
 
 
