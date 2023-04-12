@@ -24,6 +24,8 @@ public class Brick : MonoBehaviour
 
     private bool isInvincible;
 
+    [HideInInspector] public DangerZone scriptDangerZone;
+
 
     private void Start()
     {
@@ -75,6 +77,11 @@ public class Brick : MonoBehaviour
             {
                 CameraManager.Instance.DoCameraShake(cameraShakeDuration, cameraShakeDuration);
                 LevelManager.Instance.AddXP(1);
+
+                if(scriptDangerZone != null)
+                {
+                    scriptDangerZone.objectsInZone.Remove(gameObject);
+                }
 
                 refBrickManager.brickList.Remove(this);
 

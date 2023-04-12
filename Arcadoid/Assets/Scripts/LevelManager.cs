@@ -33,6 +33,7 @@ public class LevelManager : MonoBehaviour
     private GameObject upgrade1Object;
     private GameObject upgrade2Object;
     [HideInInspector] public bool isLevelingUp;
+    private int levelMax = 12;
 
     [Header("References")] 
     [SerializeField] private TextMeshProUGUI lvlText;
@@ -71,6 +72,15 @@ public class LevelManager : MonoBehaviour
     }
 
 
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+            AddXP(5);
+    }
+
+
+
     private void FixedUpdate()
     {
         if(arretDuTemps)
@@ -99,7 +109,7 @@ public class LevelManager : MonoBehaviour
 
     public void AddXP(int xpAmount)
     {
-        if (!isLevelingUp)
+        if (!isLevelingUp && currentLevel < levelMax)
         {
             currentXP += xpAmount;
 
@@ -128,7 +138,11 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
 
         currentLevel += 1;
-        lvlText.text = "Lvl. " + currentLevel;
+        if (currentLevel < levelMax)
+            lvlText.text = "Lvl. " + currentLevel;
+
+        else
+            lvlText.text = "Lvl. MAX";
 
         xpBarImage.fillAmount = (float)currentXP / (float)currentXPNeeded;
 
@@ -156,23 +170,30 @@ public class LevelManager : MonoBehaviour
 
     public void ChoseUpgrades()
     {
-        int updatesAvailable = 0;
 
-        for(int i = 0; i < upgrades.Count; i++)
-        {
-            if(upgrades[i].appearanceNumber > 0)
-            {
-                updatesAvailable += 1;
-            }
-        }
-
-        if(updatesAvailable >= 2)
-        {
             upgrade1 = null;
             upgrade2 = null;
 
+            bool oneUpdate = false;
+            bool moreUpdate = false;
+
+            for (int i = 0; i < upgrades.Count; i++)
+            {
+                if(upgrades[i].appearanceNumber > 0)
+                {
+                    if (!oneUpdate)
+                        oneUpdate = true;
+
+                    else
+                        moreUpdate = true;
+                }
+            }
+
             while(upgrade1 == null || upgrade2 == null)
             {
+                if (upgrade1 != null && !moreUpdate)
+                    upgrade2 = upgrade1;
+
                 int index = Random.Range(0, upgrades.Count);
 
                 if(upgrades[index].appearanceNumber >= 1 && upgrades[index] != upgrade1)
@@ -184,7 +205,7 @@ public class LevelManager : MonoBehaviour
                         upgrade2 = upgrades[index];
                 }
             }
-        }
+        
     }
 
 

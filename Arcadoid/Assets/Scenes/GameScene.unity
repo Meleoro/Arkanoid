@@ -17426,6 +17426,7 @@ MonoBehaviour:
   intensiteLight: 0
   cameraShakeDuration: 0
   cameraShakeStrength: 0
+  scriptDangerZone: {fileID: 0}
 --- !u!1001 &7886203715250078913
 PrefabInstance:
   m_ObjectHideFlags: 0

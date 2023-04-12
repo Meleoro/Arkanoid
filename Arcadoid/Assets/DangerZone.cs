@@ -60,17 +60,12 @@ public class DangerZone : MonoBehaviour
         if (other.CompareTag("Brick"))
         {
             objectsInZone.Add(other.gameObject);
+
+            other.GetComponent<Brick>().scriptDangerZone = this;
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Brick"))
-        {
-            objectsInZone.Remove(other.gameObject);
-            timerDanger = 0.5f;
-        }
-    }
+
 
     private void ChangeToAlert()
     {
