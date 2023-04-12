@@ -30,7 +30,7 @@ public class Tourelle : MonoBehaviour
 
             if (canShoot)
             {
-                Instantiate(bullet, transform.position, Quaternion.identity, transform);
+                Instantiate(bullet, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
             }
         }
     }

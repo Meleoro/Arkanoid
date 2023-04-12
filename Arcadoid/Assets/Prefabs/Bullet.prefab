@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 8835992995989886251}
   - component: {fileID: 9085211654310293438}
   - component: {fileID: -6804333973775529831}
-  - component: {fileID: -5477662644220298273}
   - component: {fileID: -1811837761153499237}
+  - component: {fileID: 5175282885688437608}
   m_Layer: 6
   m_Name: Bullet
   m_TagString: Ball
@@ -31,11 +31,11 @@ Transform:
   m_GameObject: {fileID: 3284906061052828705}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7220526764097809594
 MeshFilter:
@@ -44,7 +44,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3284906061052828705}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &8835992995989886251
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -130,28 +130,11 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
---- !u!114 &-5477662644220298273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3284906061052828705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa9a6e4b6737ee0438b542bd07e98f81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1000
-  rb: {fileID: 0}
-  dir: {x: 0, y: 1, z: 0}
-  isPowerful: 0
-  powershotSpeed: 1500
 --- !u!96 &-1811837761153499237
 TrailRenderer:
   serializedVersion: 3
@@ -194,7 +177,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.2
+  m_Time: 0.15
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -204,7 +187,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.5
+        value: 0.3
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -265,3 +248,18 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &5175282885688437608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3284906061052828705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8a07bdaf5f685c45a7727bb9d855255, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1000
+  rb: {fileID: 0}
+  dir: {x: 0, y: 1, z: 0}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,5 +20,20 @@ public class Bullet : MonoBehaviour
     void FixedUpdate()
     {
         rb.velocity = dir * (speed * Time.deltaTime);
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Brick"))
+        {
+            collision.gameObject.GetComponent<Brick>().LoseHealth(LevelManager.Instance.currentStrength + 1, false);
+            Destroy(gameObject);
+        }
+
+        if (collision.gameObject.CompareTag("UpWall"))
+        {
+            Destroy(gameObject);
+        }
     }
 }
