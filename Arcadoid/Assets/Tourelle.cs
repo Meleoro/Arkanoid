@@ -8,6 +8,8 @@ public class Tourelle : MonoBehaviour
     public bool canShoot;
     [SerializeField] private GameObject bullet;
     
+    [SerializeField] private Vector3 directionBullet;
+    
     [SerializeField] private float cooldownShot;
     [SerializeField] private float startOffsetCooldown;
 
@@ -30,7 +32,8 @@ public class Tourelle : MonoBehaviour
 
             if (canShoot)
             {
-                Instantiate(bullet, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+                GameObject newBullet = Instantiate(bullet, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+                newBullet.GetComponent<Bullet>().dir = directionBullet;
             }
         }
     }

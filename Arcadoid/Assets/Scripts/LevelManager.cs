@@ -24,6 +24,7 @@ public class LevelManager : MonoBehaviour
     public int currentStrength;
     public int currentSpeed;
     public int currentWidth;
+    public int currentTurret;
 
     [Header("Autres")]
     private bool arretDuTemps;
@@ -223,6 +224,10 @@ public class LevelManager : MonoBehaviour
                 BallManager.Instance.currentBallStock += 1;
                 BallManager.Instance.ActualiseBalls();
                 break;
+            
+            case Upgrade.Effect.turret:
+                currentTurret += 1;
+                break;
         }
 
         button1.enabled = false;
@@ -303,7 +308,8 @@ public class Upgrade
         strength,
         speed,
         width,
-        ball
+        ball,
+        turret
     }
 
     public Effect upgradeType;

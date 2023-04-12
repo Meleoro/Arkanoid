@@ -150,7 +150,7 @@ public class BrickManager : MonoBehaviour
             fallSpeed += 0.03f;
         }
 
-        if(currentBricks < brickList.Count)
+        if(currentBricks < brickList.Count - 1)
         {
             iterations += 1;
             if(iterations == 2)
