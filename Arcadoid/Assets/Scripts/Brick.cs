@@ -77,10 +77,11 @@ public class Brick : MonoBehaviour
             {
                 CameraManager.Instance.DoCameraShake(cameraShakeDuration, cameraShakeDuration);
                 LevelManager.Instance.AddXP(1);
+                ScoreManager.Instance.AddPoints(100);
 
                 if(scriptDangerZone != null)
                 {
-                    scriptDangerZone.objectsInZone.Remove(gameObject);
+                    scriptDangerZone.objectsInZone.RemoveAt(scriptDangerZone.objectsInZone.Count - 1);
                 }
 
                 refBrickManager.brickList.Remove(this);
@@ -103,7 +104,7 @@ public class Brick : MonoBehaviour
 
         Destroy(newParticle, 1f);
 
-        CameraManager.Instance.DoCameraShake(cameraShakeDuration, cameraShakeDuration);
+        CameraManager.Instance.DoCameraShake(cameraShakeDuration, cameraShakeStrength);
 
         StartCoroutine(SetInvincible());
     }

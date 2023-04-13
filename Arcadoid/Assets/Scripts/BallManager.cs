@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -50,7 +49,7 @@ public class BallManager : MonoBehaviour
     {
         transform.position = paddlePos.position + new Vector3(0, paddlePos.localScale.y * 0.5f, 0);
         
-        if (Input.GetKeyDown(KeyCode.Q) && currentBallStock > 0)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && currentBallStock > 0)
         {
             for (int i = 0; i < balls.Count; i++)
             {

@@ -128,6 +128,8 @@ public class LevelManager : MonoBehaviour
 
     public IEnumerator LevelUp()
     {
+        PauseManager.Instance.canPause = false;
+        
         currentXP = 0;
         currentXPNeeded += xpNeededAddition;
 
@@ -287,6 +289,7 @@ public class LevelManager : MonoBehaviour
         
         statsManagerScript.ApplyStats();
 
+        PauseManager.Instance.canPause = true;
         isLevelingUp = false;
     }
 

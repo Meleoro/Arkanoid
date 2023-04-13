@@ -18,7 +18,7 @@ public class BrickManager : MonoBehaviour
 
     [Header("Paramètres")]
     [Range(0, 100)] public float probaSpawnBrick;
-    [Range(0f, 1f)] public float fallSpeed;
+    [Range(0f, 2f)] public float fallSpeed;
     public List<Material> materials;
 
     [Header("Autres")] 
@@ -28,7 +28,7 @@ public class BrickManager : MonoBehaviour
 
     [Header("Augmentation Difficulté")]
     [SerializeField] [Range(0, 100)] private float maxProbaSpawnBrick;
-    [SerializeField] [Range(0f, 1f)] private float maxFallSpeed;
+    [SerializeField] [Range(0f, 2f)] private float maxFallSpeed;
     private int currentBricks;
     private int iterations;
 
@@ -147,7 +147,11 @@ public class BrickManager : MonoBehaviour
 
         if(fallSpeed < maxFallSpeed)
         {
-            fallSpeed += 0.03f;
+            if(currentBricks < bricksGameObjects.Count)
+                fallSpeed += 0.04f;
+            
+            else
+                fallSpeed += 0.07f;
         }
 
         if(currentBricks < bricksGameObjects.Count)
